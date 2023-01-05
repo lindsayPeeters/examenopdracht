@@ -20,7 +20,8 @@ const DrinksScreen = ({navigation}) => {
           })
           const json = await response.json();
           console.log(json);
-          setDrinks(json.results);
+          setDrinks(json);
+          console.log(setDrinks);
         } catch (error) {
           console.error(error);
         } 
@@ -28,13 +29,28 @@ const DrinksScreen = ({navigation}) => {
       useEffect(() => {
         getDrinks();
       }, []);  
+
+      
+      /* Nog filter toevoegen */
     return(
-      <View>
-        <FlatList data={drinks} keyExtractor={item => item.drinks_id} renderItem={({item}) => 
-        (<Drink id={item.drinks_id} title={item.title} navigation={navigation} onSelectDrink={(selectedId) => { navigation.navigate('Details', {drinkId: selectedId})}}/>)}>
-        </FlatList>
+      <View style={styles.container}>
+        <FlatList 
+          data={drinks}
+          keyExtractor={item => item.id} 
+          renderItem={({item}) => (
+          <Drink 
+            id={item.id} 
+            title={item.title.rendered}
+            />
+          )}
+        />
       </View>
     );
   }
+  const styles = StyleSheet.create({
+    container: {
+      padding: 40,
+    }
+  });
 
 export default DrinksScreen;
