@@ -12,6 +12,10 @@ const Drink = props => {
                     <TouchableHighlight style={styles.button} onPress={() => props.onSelectDrink(props.id)}>
                         <Text style={styles.textButton}>Details</Text>
                     </TouchableHighlight>
+                    <TouchableHighlight style={styles.addButton} 
+                        onPress={() => props.onSelectAdd(props.id, props.title)}>
+                        <Text style={styles.textButton}>+</Text>
+                    </TouchableHighlight>
                 </View>
             </View>
     );
@@ -27,16 +31,21 @@ const styles = StyleSheet.create({
     },
     infocontainer:{
         width: 210,
+        heigt: 140,
         padding: 10,
+        paddingRight: 20,
         gap: 10,
         alignContent: 'space-around',
+        justifyContent: 'space-evenly',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
     },
     showcase:{
         height: 140,
         width: 140,
         marginTop: -10,
         marginLeft: -10,
-        backgroundColor: '#458695',
+        backgroundColor: '#ffcd99',
     },
     drinkImage:{
         height: 120,
@@ -56,6 +65,13 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         height: 32,
         width: 100,
+    },
+    addButton:{
+        backgroundColor: "#ff8300",
+        borderRadius: 360,
+        padding: 5,
+        height: 32,
+        width: 32,
     },
     textButton:{
         color: 'white',

@@ -5,8 +5,6 @@ import DetailDrink from '../components/DetailDrink';
 
 const DetailScreen = ({route, navigation}) =>{
     const drinkId = route.params.drinkId;
-    //console.log(drinkId);
-    //console.log(route);
     return(
         <View style={styles.container}>
             <DetailDrink id={drinkId}/>
