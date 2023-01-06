@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, FlatList, TextInput } from 'react-native';
+import { StyleSheet, View, List, FlatList, TextInput } from 'react-native';
 import apiKey from '../apiKey';
 
 import Drink from '../components/Drink';
@@ -33,7 +33,7 @@ const DrinksScreen = ({navigation}) => {
       
       /* Nog filter toevoegen */
     return(
-        <View style={styles.container}>
+      <View  style={styles.container}>
         <FlatList 
           data={drinks}
           keyExtractor={item => item.id} 
@@ -41,11 +41,9 @@ const DrinksScreen = ({navigation}) => {
           <Drink 
             id={item.id} 
             title={item.title.rendered}
-            /*rttpg_excerpt={item.rttpg_excerpt}*/
-            /*image={item.rttpg_featured_image_url.thumbnail}*/
+            picture={item.rttpg_featured_image_url.full[0]}
             navigation={navigation}
             onSelectDrink={(selectedId) => { navigation.navigate('Details', { drinkId: selectedId }); }}
-            
             />
           )}
         />
@@ -56,11 +54,6 @@ const DrinksScreen = ({navigation}) => {
     container: {
       padding: 40,
       flex: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      flexGrow: 0,
-      flexShrink: 0,
-      justifyContent: 'space-evenly',
     }
   });
 
