@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native';
 
 const Drink = props => {
+    const [buttonValue, setButtonValue] = useState("+");
     return (
             <View style={styles.listItem}>
                 <View style={styles.showcase}>
@@ -13,8 +14,16 @@ const Drink = props => {
                         <Text style={styles.textButton}>Details</Text>
                     </TouchableHighlight>
                     <TouchableHighlight style={styles.addButton} 
-                        onPress={() => props.onSelectAdd(props.id, props.title)}>
-                        <Text style={styles.textButton}>+</Text>
+                        onPress={() => {
+                            //de buttonValue wordt aangepast wanneer er wordt op geklikt
+                            if(buttonValue == "+"){
+                                setButtonValue("-");
+                            }else{
+                                setButtonValue("+");
+                            };
+                            props.onSelectAdd(props.id, props.title);
+                        }}>
+                        <Text style={styles.textButton}>{buttonValue}</Text>
                     </TouchableHighlight>
                 </View>
             </View>

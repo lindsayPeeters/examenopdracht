@@ -37,7 +37,7 @@ const DrinksScreen = ({navigation}) => {
     return(
       <View  style={styles.container}>
         <View style={styles.subnavigation}>
-            <TouchableHighlight style={styles.subNavigationButton} onPress={() => { navigation.navigate('Favorites'); }}>
+            <TouchableHighlight style={styles.subNavigationButton} onPress={() => { navigation.navigate('Favorites', {drinkId: -1}); }}>
               <Text style={styles.textButton}>Your favorites</Text>
             </TouchableHighlight>
         </View>
