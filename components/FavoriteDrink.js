@@ -3,9 +3,11 @@ import { StyleSheet, Text, View, } from 'react-native';
 
 const FavoriteDrink = props => {
     return (
+        <View>
             <View style={styles.listItem}>
                 <Text style={styles.drinkName}>{props.title}</Text>       
             </View>
+        </View>
     );
 }
 const styles = StyleSheet.create({
@@ -13,9 +15,9 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         padding: 10,
         width: '100%',
-        height: 140,
+        height: 80,
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: '#ffcd99',
     },
     drinkName:{
         fontSize: 18,

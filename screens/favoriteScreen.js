@@ -41,6 +41,7 @@ const FavoriteScreen= ({route, navigation}) => {
 
     return(
         <View style={styles.container}>
+            <Text style={styles.subTitle}>Hou je favoriete drank bij voor een vlot winkelbezoek.</Text>
             <FlatList 
             data={favoriteDrinks}
             keyExtractor={item => item.id} 
@@ -60,6 +61,10 @@ const styles = StyleSheet.create({
     container: {
       padding: 40,
       flex: 1,
+    },
+    subTitle:{
+        fontSize: 20,
+        marginBottom: 30,
     }
   });
 export default FavoriteScreen;

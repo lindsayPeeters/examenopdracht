@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList, Text, TextInput, TouchableHighlight } from 'react-native';
-import { withSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet, View, FlatList, Text, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
 
 import apiKey from '../apiKey';
 import Drink from '../components/Drink';
@@ -33,13 +32,31 @@ const DrinksScreen = ({navigation}) => {
       }, []);  
 
       
-      /* Nog filter toevoegen */
+      /* Filter om de drinks te kunnen opzoeken 
+      const getDrinksBytitle = async (enteredText) => {
+      try{
+        if(enteredText.lenght > 3 ){//alle strings langer dan 3 argumenten waar het woord in voor komt
+          if(item.title.rendered ==/(?:^|\W){enteredText}(?:$|\W)/gm){
+            setDrinks(json);
+          }
+        }
+      }catch(error){
+        console.error(error);
+        <TextInput //Dit stukje moet in de return staan
+          placeholder="search drinks"
+          style={styles.input}
+          onChangeText={getDrinksByTitle}
+        />
+      }};*/
     return(
       <View  style={styles.container}>
         <View style={styles.subnavigation}>
-            <TouchableHighlight style={styles.subNavigationButton} onPress={() => { navigation.navigate('Favorites', {drinkId: -1}); }}>
+            <TouchableOpacity style={styles.subNavigationButton} onPress={() => { navigation.navigate('Favorites', {drinkId: -1}); }}>
               <Text style={styles.textButton}>Your favorites</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.subNavigationButton} onPress={() => { navigation.navigate('Discount'); }}>
+              <Text style={styles.textButton}>Get discount</Text>
+            </TouchableOpacity>
         </View>
         <FlatList 
           data={drinks}
@@ -71,17 +88,21 @@ const DrinksScreen = ({navigation}) => {
     subnavigation:{
       marginTop: 5,
       marginBottom: 5,
-      height: 40,
-      backgroundColor: '#7db6c3',
-      padding: 10,
+      flexDirection: 'row',
     },
     subNavigationButton:{
       width: 150,
+      backgroundColor: '#7db6c3',
+      marginHorizontal: 5,
+      height: 40,
+      padding: 10,
+      borderRadius: 24,
     },
     textButton:{
       color: 'white',
       fontSize: 16,
       fontWeight: 'bold',
+      textAlign: 'center',
     }
   });
 
