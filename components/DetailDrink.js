@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { Text, StyleSheet, Image, ScrollView } from 'react-native';
 
 import apiKey from '../apiKey';
 
@@ -20,22 +20,15 @@ const DetailDrink = props => {
             }
           })
           const json = await response.json();
-          console.log(json);
           setDetailDrink(json);
           //title toevoegen
-          console.log(json.title.rendered);
           setTitle(json.title.rendered);
-          console.log(title);
           //picture toevoegen
           setPicture(json.rttpg_featured_image_url.full);
-          console.log("picture:");
-          console.log(picture);
           setLink(json.rttpg_featured_image_url.full[0]);
-          //setLink("https://m.media-amazon.com/images/M/MV5BOWMyNzExNzctOWNjNy00MzMxLWJlYWMtYjJiYmM0Mjg0YWZmXkEyXkFqcGdeQXVyNTU5NjAwMTQ@._V1_.jpg");          console.log("link:");
-          console.log(link);
           //description toevoegen
-          const regex = /(<([^>]+)>)/ig;
-          const result = json.excerpt.rendered.replace(regex, '');
+          const regex = /(<([^>]+)>)/ig; //reguliere expressie voor de <html> tags te selecteren in de string
+          const result = json.excerpt.rendered.replace(regex, '');// de <html> tags worden verwijderd
           setDescription(result);
         }
         catch(error){

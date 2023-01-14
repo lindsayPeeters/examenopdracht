@@ -1,13 +1,14 @@
 import React, { useState, useEffect} from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableHighlight, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 import FavoriteDrink from '../components/FavoriteDrink';
-
+//lijst met de geselecteerde drinks
 const listFavorites = [];
 
 const FavoriteScreen= ({route, navigation}) => {
     const favoriteId = route.params.drinkId;
     const favoriteTitle = route.params.drinkTitle;
+    //lijst met favoriete drinks
     const [favoriteDrinks, setFavoriteDrinks]= useState([]);
    
     useEffect(() => {

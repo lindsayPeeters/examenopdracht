@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList, Text, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 
 import apiKey from '../apiKey';
 import Drink from '../components/Drink';
 
+//lijst van alle drinks
 const allDrinks = [];
 
 const DrinksScreen = ({navigation}) => {
@@ -22,8 +23,9 @@ const DrinksScreen = ({navigation}) => {
               }
             })
             const json = await response.json();
+            //drinks toevoegen aan de lijst
             allDrinks.push(...json);
-            console.log(allDrinks);
+            //de lijst wordt in current drinks gezet
             setDrinks(allDrinks);
         } catch (error) {
           console.error(error);
@@ -35,17 +37,22 @@ const DrinksScreen = ({navigation}) => {
     }, []);  
  
     /* Filter om de drinks te kunnen opzoeken */
-    const getDrinksByTitle = async (enteredText) => {
+    const getDrinksByTitle = (enteredText) => {
+        //lijst van de gefilterde drinks a.d.h.v. de textinput
         const filteredDrinks = [];
-        if(enteredText.length >= 3){//alle strings langer dan 3 argumenten waar het woord in voor komt
+        if(enteredText.length >= 3){
+            //bij een input van 3 of meer karkakters word de opgegeven string gezocht in de lijst van alle drinks
             var regEx = new RegExp(enteredText, 'i');
             allDrinks.forEach((item)=>{
                 if(regEx.test(item.title.rendered)){
+                    //het resultaat wordt toegevoegd aan de gefilterde lijst
                     filteredDrinks.push(item);
                 };
             });
+            //de gefilterde lijst wordt in de current drinks gezet
             setDrinks(filteredDrinks);
         }else if (enteredText.length == 0){
+            //als de textinput leeg worden weer alle drinks in de lijst getoond
             setDrinks(allDrinks);
         };
     };
@@ -60,11 +67,17 @@ const DrinksScreen = ({navigation}) => {
               <Text style={styles.textButton}>Get discount</Text>
             </TouchableOpacity>
         </View>
-        <TextInput
-          placeholder="search drinks"
-          style={styles.input}
-          onChangeText={(enteredText) => { getDrinksByTitle(enteredText); }}
-        />
+        <View style={styles.searchContainer}>
+          <TextInput
+            placeholder="search drinks"
+            style={styles.input}
+            onChangeText={getDrinksByTitle}
+          />
+          <Image
+            style={styles.searchIcon}
+            source={require('../assets/vergrootglas.png')}
+          />
+        </View>
         <FlatList 
           data={drinks}
           keyExtractor={item => item.id} 
@@ -110,6 +123,24 @@ const DrinksScreen = ({navigation}) => {
       fontSize: 16,
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+    input:{
+      borderWidth: 1,
+      marginVertical: 10,
+      padding: 5,
+      paddingLeft: 15,
+      borderRadius: 32, 
+      width: '85%',
+      borderColor: "#ff8300",
+    },
+    searchIcon:{
+      width: 32,
+      height:32,
+    },
+    searchContainer:{
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
     }
   });
 
