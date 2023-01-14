@@ -8,16 +8,8 @@ const listFavorites = [];
 const FavoriteScreen= ({route, navigation}) => {
     const favoriteId = route.params.drinkId;
     const favoriteTitle = route.params.drinkTitle;
-
-    /*const favoriteDrinks =[
-        {
-            id: "id",
-            title: "title"
-        }
-    ];*/
     const [favoriteDrinks, setFavoriteDrinks]= useState([]);
    
-    /*favoriteDrinks.push({id: favoriteId, title: favoriteTitle});*/
     useEffect(() => {
         if(favoriteId!=-1){
             const currentIndex = listFavorites.findIndex((value,number,obj)=>

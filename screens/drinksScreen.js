@@ -4,6 +4,8 @@ import { StyleSheet, View, FlatList, Text, TextInput, TouchableHighlight, Toucha
 import apiKey from '../apiKey';
 import Drink from '../components/Drink';
 
+const allDrinks = [];
+
 const DrinksScreen = ({navigation}) => {
     //array drinks
     const [drinks, setDrinks] = useState([]);
@@ -12,42 +14,42 @@ const DrinksScreen = ({navigation}) => {
         try{
             const response = await fetch("https://drinks2.p.rapidapi.com/wp-json/wp/v2/posts", 
             {
-            "method": "GET",
-            "params": "{categories: '15'}",
-            "headers": {
-              "x-rapidapi-host": "drinks2.p.rapidapi.com",
-              "x-rapidapi-key": apiKey
-            }
-          })
-          const json = await response.json();
-          console.log(json);
-          setDrinks(json);
-          console.log(setDrinks);
+              "method": "GET",
+              "params": "{categories: '15'}",
+              "headers": {
+                "x-rapidapi-host": "drinks2.p.rapidapi.com",
+                "x-rapidapi-key": apiKey
+              }
+            })
+            const json = await response.json();
+            allDrinks.push(...json);
+            console.log(allDrinks);
+            setDrinks(allDrinks);
         } catch (error) {
           console.error(error);
         } 
-      }
-      useEffect(() => {
-        getDrinks();
-      }, []);  
+    }
 
-      
-      /* Filter om de drinks te kunnen opzoeken 
-      const getDrinksBytitle = async (enteredText) => {
-      try{
-        if(enteredText.lenght > 3 ){//alle strings langer dan 3 argumenten waar het woord in voor komt
-          if(item.title.rendered ==/(?:^|\W){enteredText}(?:$|\W)/gm){
-            setDrinks(json);
-          }
-        }
-      }catch(error){
-        console.error(error);
-        <TextInput //Dit stukje moet in de return staan
-          placeholder="search drinks"
-          style={styles.input}
-          onChangeText={getDrinksByTitle}
-        />
-      }};*/
+    useEffect(() => {
+      getDrinks();
+    }, []);  
+ 
+    /* Filter om de drinks te kunnen opzoeken */
+    const getDrinksByTitle = async (enteredText) => {
+        const filteredDrinks = [];
+        if(enteredText.length >= 3){//alle strings langer dan 3 argumenten waar het woord in voor komt
+            var regEx = new RegExp(enteredText, 'i');
+            allDrinks.forEach((item)=>{
+                if(regEx.test(item.title.rendered)){
+                    filteredDrinks.push(item);
+                };
+            });
+            setDrinks(filteredDrinks);
+        }else if (enteredText.length == 0){
+            setDrinks(allDrinks);
+        };
+    };
+
     return(
       <View  style={styles.container}>
         <View style={styles.subnavigation}>
@@ -58,6 +60,11 @@ const DrinksScreen = ({navigation}) => {
               <Text style={styles.textButton}>Get discount</Text>
             </TouchableOpacity>
         </View>
+        <TextInput
+          placeholder="search drinks"
+          style={styles.input}
+          onChangeText={(enteredText) => { getDrinksByTitle(enteredText); }}
+        />
         <FlatList 
           data={drinks}
           keyExtractor={item => item.id} 

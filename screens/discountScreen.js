@@ -9,7 +9,8 @@ const DiscountScreen = () =>{
     // Start animatie
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 5000
+      duration: 5000,
+      useNativeDriver: 'false',
     }).start();
   };
     return(
