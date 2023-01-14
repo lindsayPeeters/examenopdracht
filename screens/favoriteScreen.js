@@ -8,11 +8,12 @@ const listFavorites = [];
 const FavoriteScreen= ({route, navigation}) => {
     const favoriteId = route.params.drinkId;
     const favoriteTitle = route.params.drinkTitle;
-    //lijst met favoriete drinks
+    //lijst met favoriete drinks die getoond worden op het scherm
     const [favoriteDrinks, setFavoriteDrinks]= useState([]);
    
     useEffect(() => {
         if(favoriteId!=-1){
+            //de geselecteerde id wordt gezocht in de lijst van favorieten
             const currentIndex = listFavorites.findIndex((value,number,obj)=>
             {
                 return value.id == favoriteId;

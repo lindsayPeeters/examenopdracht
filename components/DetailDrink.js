@@ -4,11 +4,11 @@ import { Text, StyleSheet, Image, ScrollView } from 'react-native';
 import apiKey from '../apiKey';
 
 const DetailDrink = props => {
-    const [detailDrink, setDetailDrink] = useState({});
+    //variabele die getoond worden op het scherm en opnieuw kan ingevuld worden
     const [title, setTitle] = useState("-");
-    const [picture, setPicture] = useState([]);
     const [description, setDescription] = useState("-");
     const [link, setLink] = useState("https://lindsaypeeters.com/wp-content/uploads/2023/01/image-11.png");
+    
     const getDrinksById = async () => {
         try{
             const response = await fetch("https://drinks2.p.rapidapi.com/wp-json/wp/v2/posts/"+props.id+"/", 
@@ -20,11 +20,9 @@ const DetailDrink = props => {
             }
           })
           const json = await response.json();
-          setDetailDrink(json);
           //title toevoegen
           setTitle(json.title.rendered);
           //picture toevoegen
-          setPicture(json.rttpg_featured_image_url.full);
           setLink(json.rttpg_featured_image_url.full[0]);
           //description toevoegen
           const regex = /(<([^>]+)>)/ig; //reguliere expressie voor de <html> tags te selecteren in de string

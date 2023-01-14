@@ -8,7 +8,7 @@ import Drink from '../components/Drink';
 const allDrinks = [];
 
 const DrinksScreen = ({navigation}) => {
-    //array drinks
+    //array drinks die worden weergegeven op het scherm
     const [drinks, setDrinks] = useState([]);
     //opvragen drinks
     const getDrinks = async () =>{
